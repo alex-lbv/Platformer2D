@@ -5,14 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speedX = -1f;
+    [SerializeField] private Animator animator; 
 
     private float horizontal = -1f;
     private bool isGround = false;
     private bool isJump = false;
     private Rigidbody2D rb;
+    private bool isFacingRight = true;
 
 
-    const float speedMultiplier = 200f;
+    const float speedMultiplier = 300f;
 
 
     void Start() {
@@ -21,8 +23,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
-
         horizontal = Input.GetAxis("Horizontal");
+        animator.SetFloat("speedX", Mathf.Abs(horizontal));
         if(Input.GetKey(KeyCode.W) && isGround) {
             isJump = true;
         }
@@ -36,6 +38,19 @@ public class PlayerController : MonoBehaviour
             isGround = false; 
             isJump = false; 
         }
+
+        if(horizontal > 0f && !isFacingRight) {
+            Flip();
+        } else if (horizontal < 0f && isFacingRight) {
+           Flip();
+        }
+    }
+
+    void Flip () {
+        isFacingRight = !isFacingRight;
+        Vector3 playerScale = transform.localScale;
+        playerScale.x *= -1;
+        transform.localScale = playerScale;
     }
 
     void OnCollisionEnter2D (Collision2D other) {
