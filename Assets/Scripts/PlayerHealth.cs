@@ -1,20 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField] private Slider healthSlider;
     [SerializeField] private Animator animator;
-    [SerializeField] private float health = 100f;
+    [SerializeField] private float totalHealth = 100f;
+
+    private float _health;
+
+    private void Start () {
+        _health = totalHealth;
+        InitHealth();
+    }
 
     public void ReduceHealth (float damage) {
-        health -= damage;
+        _health -= damage;
+        InitHealth();
         animator.SetTrigger("takeDamage");
-        if (health <= 0f) Die();
+        if (_health <= 0f) Die();
+    }
+
+    private void InitHealth () {
+        healthSlider.value = _health / totalHealth;
     }
 
     private void Die () {
-        animator.SetTrigger("toDie");
-        // gameObject.SetActive(false);
+        // animator.SetTrigger("toDie");
+        gameObject.SetActive(false);
     }
 }

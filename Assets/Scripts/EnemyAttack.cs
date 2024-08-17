@@ -31,6 +31,8 @@ public class EnemyAttack : MonoBehaviour
         if (playerHealth != null && _isDamage) {
             playerHealth.ReduceHealth(damage);
             _isDamage = false;
+
+            Debug.Log("Attack");
         }
     }
 }
