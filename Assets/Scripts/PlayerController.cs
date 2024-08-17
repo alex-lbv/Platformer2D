@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speedX = -1f;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform playerModelTransform;
+    [SerializeField] private AudioSource jumpSound;
 
     private float _horizontal = 1f;
     private bool _isGround = false;
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("speedX", Mathf.Abs(_horizontal));
         if(Input.GetKey(KeyCode.W) && _isGround) {
             _isJump = true;
+            jumpSound.Play();
         }
         if(Input.GetKeyDown(KeyCode.F)) {
             if (_isFinish) {
