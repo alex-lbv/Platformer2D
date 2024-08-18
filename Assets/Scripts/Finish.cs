@@ -5,18 +5,22 @@ using UnityEngine;
 public class Finish : MonoBehaviour
 {
     [SerializeField] private GameObject levelCompleteCanvas;
+    [SerializeField] private GameObject messageUI;
 
     private bool _isActivated = false;
 
     public void Activate () {
       Debug.Log("Is Acivated!");
       _isActivated = true;
+      messageUI.SetActive(false);
     }
     
     public void FinishLevel() {
        if(_isActivated) {
           levelCompleteCanvas.SetActive(true);
           gameObject.SetActive(false);
+       } else {
+         messageUI.SetActive(true);
        }
     }
 }
