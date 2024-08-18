@@ -19,30 +19,29 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private Finish _finish;
     private LeverArm _leverArm;
+    private FixedJoystick _fixedJoystick;
 
     const float speedMultiplier = 300f;
 
 
     void Start() {
         _rb = GetComponent<Rigidbody2D>();
-        _finish = GameObject.FindGameObjectWithTag("Finish").GetComponent<Finish>(); 
+        _finish = GameObject.FindGameObjectWithTag("Finish").GetComponent<Finish>();
+        _fixedJoystick = GameObject.FindGameObjectWithTag("FixedJoystick").GetComponent<FixedJoystick>();
+        Debug.Log(_fixedJoystick);
         _leverArm = FindObjectOfType<LeverArm>();
     }
 
     void Update() {
-        _horizontal = Input.GetAxis("Horizontal");
+
+        // _horizontal = Input.GetAxis("Horizontal");
+        _horizontal = _fixedJoystick.Horizontal;
         animator.SetFloat("speedX", Mathf.Abs(_horizontal));
-        if(Input.GetKeyDown(KeyCode.W) && _isGround) {
-            _isJump = true;
-            jumpSound.Play();
+        if(Input.GetKeyDown(KeyCode.W)) {
+           Jump();
         }
         if(Input.GetKeyDown(KeyCode.F)) {
-            if (_isFinish) {
-                _finish.FinishLevel();
-            }
-            if (_isLeverArm) {
-                _leverArm.ActivateLeverArm();
-            }   
+             Interact();
         }
     }
 
@@ -67,6 +66,22 @@ public class PlayerController : MonoBehaviour
         Vector3 playerScale = playerModelTransform.localScale;
         playerScale.x *= -1;
         playerModelTransform.localScale = playerScale;
+    }
+
+    public void Jump () {
+        if (! _isGround) return;
+        
+        _isJump = true;
+        jumpSound.Play();
+    }
+
+    public void Interact () {
+        if (_isFinish) {
+                _finish.FinishLevel();
+            }
+            if (_isLeverArm) {
+                _leverArm.ActivateLeverArm();
+            }  
     }
 
     void OnCollisionEnter2D (Collision2D other) {

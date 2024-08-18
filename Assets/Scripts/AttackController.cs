@@ -19,11 +19,17 @@ public class AttackController : MonoBehaviour
         _isAttack = false;
     }
 
-    private void Update () {
-        if (Input.GetMouseButtonDown(0)) {
-            _isAttack = true;
-            animator.SetTrigger("attack");
-            attackSound.Play();
-        }
+    public void Attack () {
+        _isAttack = true;
+        animator.SetTrigger("attack");
+        attackSound.Play();
     }
+
+    // private void Update () {
+    //     if (Input.GetMouseButtonDown(0)) {
+    //         _isAttack = true;
+    //         animator.SetTrigger("attack");
+    //         attackSound.Play();
+    //     }
+    // }
 }
