@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
+    [SerializeField] private GameObject levelCompleteCanvas;
 
     private bool _isActivated = false;
 
@@ -14,7 +15,8 @@ public class Finish : MonoBehaviour
     
     public void FinishLevel() {
        if(_isActivated) {
-         gameObject.SetActive(false);
+          levelCompleteCanvas.SetActive(true);
+          gameObject.SetActive(false);
        }
     }
 }
