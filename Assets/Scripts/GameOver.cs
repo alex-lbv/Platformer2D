@@ -12,5 +12,6 @@ public class GameOver : MonoBehaviour
 
     public void ExitHandler () {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
     }
 }

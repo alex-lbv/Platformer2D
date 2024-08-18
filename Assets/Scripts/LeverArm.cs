@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class LeverArm : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
 
     private Finish _finish;
-    private Animator _animator;
 
     void Start () {
         _finish = GameObject.FindGameObjectWithTag("Finish").GetComponent<Finish>();
-        _animator = GetComponent<Animator>();
     }
 
     public void ActivateLeverArm () {
         _finish.Activate();
-        _animator.SetTrigger("activate");
+        animator.SetTrigger("activate");
     }
 }
